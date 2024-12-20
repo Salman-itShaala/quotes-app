@@ -45,6 +45,15 @@ const quoteSlice = createSlice({
       })
       .addCase(getQuoteById.rejected, (state, action) => {
         console.log("Failed");
+      })
+      .addCase(getQuotes.pending, (state, action) => {
+        console.log("Request going on");
+      })
+      .addCase(getQuotes.fulfilled, (state, action) => {
+        state.quotes = action.payload;
+      })
+      .addCase(getQuotes.rejected, () => {
+        console.log("Request going on");
       });
   },
 });
