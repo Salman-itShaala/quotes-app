@@ -1,38 +1,18 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getQuoteById, getQuotes } from "./slice/quoteSlice";
-import { useState } from "react";
+import QuoteWithId from "./pages/QuoteWithId";
+import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
 
 function App() {
-  const quotesState = useSelector((state) => state.quotes);
-
-  const [quoteId, setQuoteId] = useState(0);
-
-  const dispatch = useDispatch();
-
-  function handleButtonClick() {
-    dispatch(getQuotes());
-  }
-
-  function handleFormSubmit(e) {
-    // preventing default behaviour of form submit
-    e.preventDefault();
-    // dispatch
-    dispatch(getQuoteById(quoteId));
-  }
-
-  console.log(quotesState);
-
   return (
-    <>
-      <h1>Simple react app</h1>
-
-      <form onSubmit={(e) => handleFormSubmit(e)}>
-        <input type="text" onChange={(e) => setQuoteId(e.target.value)} />
-
-        <button>Get quote with id</button>
-      </form>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/quote-id" element={<QuoteWithId />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
